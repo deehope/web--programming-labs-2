@@ -1,9 +1,13 @@
-from flask import Flask
+from flask import Flask, redirect
 app = Flask(__name__)
 
 @app.route("/")
 @app.route("/index")
 def start():
+    return redirect("/menu", code=302)
+    
+@app.route("/menu")
+def menu():
     return """
 <!DOCTYPE html>
 <html lang="ru">
@@ -18,8 +22,9 @@ def start():
         </header>
 
         <ul>
-            <li><a href = "/lab1">Первая лабораторная<li>
-        <ul>
+            <li><a href = "/lab1">Первая лабораторная</a></li>
+        </ul>
+
 
         <footer>
             &copy; Соколова Дарья, ФБИ-23, 3 курс, 2024
@@ -48,9 +53,7 @@ def lab1():
             программирования Python, использующий набор инструментов
             Werkzeug, а также шаблонизатор Jinja2. Относится к категории так
             называемых микрофреймворков — минималистичных каркасов
-
-            веб-приложений, сознательно предоставляющих лишь самые ба-
-            зовые возможности.<p>
+            веб-приложений, сознательно предоставляющих лишь самые базовые возможности.</p>
 
         <footer>
             &copy; Соколова Дарья, ФБИ-23, 3 курс, 2024
