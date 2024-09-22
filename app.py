@@ -229,3 +229,7 @@ def example():
         {'author': 'Наталья Мамлеева', 'name': 'Злодейка своего романа', 'genre': 'фэнтези', 'count': 220 }
     ]
     return render_template('example.html', number = number, name = name, group = group, course = course, fruits = fruits, books = books)
+
+@app.route('/lab2/')
+def lab2():
+    return render_template('lab2.html')
