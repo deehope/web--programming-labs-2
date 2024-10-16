@@ -50,12 +50,12 @@ def oak():
 <!DOCTYPE html>
 <html lang="ru">
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') + '''">
     </head>
 
     <body>
         <h1>Дуб</h1>
-        <img src="''' + url_for('static', filename='oak.webp') + '''">
+        <img src="''' + url_for('static', filename='lab1/oak.webp') + '''">
     </body>
 </html>
 '''
@@ -70,12 +70,12 @@ def student():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Соколова Дарья Антоновна, лабораторная 1</title>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') + '''">
     </head>
     <body>
 
         <h1>Соколова Дарья Антоновна</h1>
-        <img src="''' + url_for('static', filename='logo.png') + '''">
+        <img src="''' + url_for('static', filename='lab1/logo.png') + '''">
 
         <footer>
             &copy; Соколова Дарья, ФБИ-23, 3 курс, 2024
@@ -94,7 +94,7 @@ def puthon():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Соколова Дарья Антоновна, лабораторная 1</title>
-            <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+            <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') + '''">
             <style>
                 h1 {
                     text-align: center;
@@ -126,7 +126,7 @@ def puthon():
             Поддерживается разбиение программ на модули, которые, в свою очередь, могут объединяться в пакеты.</p>
             
             <div class='image'>
-                <img src="''' + url_for('static', filename='python.png') + '''">
+                <img src="''' + url_for('static', filename='lab1/python.png') + '''">
             </div>
         </body>
     </html>
@@ -142,7 +142,7 @@ def flower():
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Соколова Дарья Антоновна, лабораторная 1</title>
-            <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') + '''">
+            <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') + '''">
             <style>
                 h1 {
                     text-align: center;
@@ -174,7 +174,7 @@ def flower():
             внимание и на их красоту.</p>
             
             <div class='image'>
-                <img src="''' + url_for('static', filename='rosa.jpeg') + '''">
+                <img src="''' + url_for('static', filename='lab1/rosa.jpeg') + '''">
             </div>
         </body>
     </html>

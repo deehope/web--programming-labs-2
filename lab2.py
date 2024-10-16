@@ -27,14 +27,14 @@ def example():
         {'author': 'Дэвид Эллис', 'name': 'Дом лжи', 'genre': 'детектив', 'count': 426 },
         {'author': 'Наталья Мамлеева', 'name': 'Злодейка своего романа', 'genre': 'фэнтези', 'count': 220 }
     ]
-    return render_template('example.html', number = number, name = name, group = group, course = course, fruits = fruits, books = books)
+    return render_template('lab2/example.html', number = number, name = name, group = group, course = course, fruits = fruits, books = books)
 
 
 @lab2.route('/lab2/')
 def lab():
-    return render_template('lab2.html')
+    return render_template('lab2/lab2.html')
 
 
 @lab2.route('/lab2/berries')
 def berries():
-    return render_template('berries.html')
+    return render_template('lab2/berries.html')
