@@ -32,4 +32,19 @@ header {
     width: 100%;
 }
 
-
+.drinks {
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+    margin: auto;
+    background-color: rgb(223, 202, 227);
+    text-align: center;
+}
+.pay {
+    border: 2px solid grey;
+    border-radius: 20px;
+    padding: 10px;
+    margin: auto;
+    background-color: rgb(223, 202, 227);
+    text-align: center;
+}

@@ -9,7 +9,8 @@
         Сумма к оплате: {{ price }}
     </div>
 
-    <form action="/lab3/success">
+    <form action="/lab3/success" class="pay">
+        <input type="hidden" name="price" value="{{ price }}">
         <div>Номер банковской карты:</div>
         <label>
             <input type="text" name="card" pattern="\d{16}">
@@ -29,10 +30,5 @@
             <button type="submit">Оплатить</button>
             <button type="submit"> <a href="/lab3/order">Отказаться</a></button>
         </div>
-
-       <!-- <div>
-            Спасибо, ваш заказ оплачен на сумму {{ price }} рублей, ожидайте доставку <br>
-            <a href="/lab3/order">Вернуться</a>
-        </div>  -->
     </form>
 {% endblock %}

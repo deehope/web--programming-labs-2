@@ -65,6 +65,13 @@ def pay():
     return render_template('lab3/pay.html', price=price)
 
 
+@lab3.route('/lab3/success')
+def success():
+    price = request.args.get('price')
+
+    return render_template('lab3/success.html', price=price)
+
+
 @lab3.route('/lab3/settings')
 def settings():
     color = request.args.get('color')
