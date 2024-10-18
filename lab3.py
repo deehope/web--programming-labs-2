@@ -7,7 +7,7 @@ def lab():
     name = request.cookies.get('name') or 'аноним'
     name_color = request.cookies.get('name_color')
     age = request.cookies.get('age') or 'неизвестный'
-    return render_template('lab3/lab3.html', name=name, name_color=name_color, age=age)
+    return render_template('lab3/lab3.html', name=name, name_color=name_color, age = age)
 
 @lab3.route('/lab3/cookie')
 def cookie():
@@ -108,5 +108,69 @@ def settings():
     return resp
 
 
+@lab3.route('/lab3/form2')
+def form2():
+    errors = {}
 
+    form_submitted = bool(request.args)
     
+    pass_name = request.args.get('pass_name', '')
+    if form_submitted and not pass_name:
+        errors['pass_name'] = 'Заполните поле!'
+
+    shelf = request.args.get('shelf')
+    bedding = request.args.get('bedding') == 'on'
+    luggage = request.args.get('luggage') == 'on'
+
+    age = request.args.get('age')
+    if form_submitted:
+        if not age or age == '':
+            errors['age'] = 'Заполните поле!'
+        else:
+            try:
+                age = int(age)
+                if age < 1 or age > 120:
+                    errors['age'] = 'Возраст должен быть от 1 до 120 лет!'
+            except ValueError:
+                errors['age'] = 'Некорректный возраст!'
+
+    departure = request.args.get('departure', '')
+    if form_submitted and not departure:
+        errors['departure'] = 'Заполните поле!'
+
+    destination = request.args.get('destination', '')
+    if form_submitted and not destination:
+        errors['destination'] = 'Заполните поле!'
+
+    date = request.args.get('date', '')
+    if form_submitted and not date:
+        errors['date'] = 'Заполните поле!'
+
+    insurance = request.args.get('insurance') == 'on'
+
+    if 'age' in errors:
+        price = 0
+        ticket_type = ''
+    else:
+        if age and age >= 18:
+            base_price = 1000
+            ticket_type = 'Взрослый'
+        else:
+            base_price = 700
+            ticket_type = 'Детский'
+
+        if shelf in ['lower', 'lower_side']:
+            base_price += 100
+        if bedding:
+            base_price += 75
+        if luggage:
+            base_price += 250
+        if insurance:
+            base_price += 150
+
+        price = base_price
+
+    return render_template('lab3/form2.html', errors=errors, pass_name=pass_name, shelf=shelf,
+                           bedding=bedding, luggage=luggage, age=age, departure=departure,
+                           destination=destination, date=date, insurance=insurance,
+                           ticket_type=ticket_type, price=price)
