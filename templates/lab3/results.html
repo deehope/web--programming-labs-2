@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 3{% endblock %}
+
+{% block main %}
+    <h1>Результаты поиска</h1>
+    <ul>
+        {% if cars %}
+    <h2>Найденные автомобили</h2>
+    <ul>
+        {% for car in cars %}
+        <li>
+            <strong>{{ car.name }}</strong> - {{ car.price }} &#36;, Бренд: {{ car.brand }}, Год: {{ car.year }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>Нет автомобилей, соответствующих заданным критериям.</p>
+    {% endif %}
+    </ul>
+    <a href="/lab3/cars">Вернуться к поиску</a>
+{% endblock %}

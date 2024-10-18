@@ -185,3 +185,44 @@ def del_cookie_2():
     resp.delete_cookie('fontweight')
 
     return resp
+
+
+cars = [
+    {"name": "Toyota Corolla", "price": 15000, "brand": "Toyota", "year": 2019},
+    {"name": "Ford Mustang", "price": 30000, "brand": "Ford", "year": 2020},
+    {"name": "Chevrolet Camaro", "price": 35000, "brand": "Chevrolet", "year": 2021},
+    {"name": "Honda Civic", "price": 18000, "brand": "Honda", "year": 2020},
+    {"name": "Tesla Model 3", "price": 40000, "brand": "Tesla", "year": 2022},
+    {"name": "BMW 3 Series", "price": 35000, "brand": "BMW", "year": 2019},
+    {"name": "Audi A4", "price": 37000, "brand": "Audi", "year": 2021},
+    {"name": "Mercedes-Benz C-Class", "price": 40000, "brand": "Mercedes", "year": 2022},
+    {"name": "Volkswagen Golf", "price": 20000, "brand": "Volkswagen", "year": 2018},
+    {"name": "Nissan Altima", "price": 17000, "brand": "Nissan", "year": 2020},
+    {"name": "Subaru Impreza", "price": 22000, "brand": "Subaru", "year": 2019},
+    {"name": "Hyundai Elantra", "price": 16000, "brand": "Hyundai", "year": 2020},
+    {"name": "Kia Optima", "price": 19000, "brand": "Kia", "year": 2021},
+    {"name": "Mazda 6", "price": 24000, "brand": "Mazda", "year": 2021},
+    {"name": "Porsche 911", "price": 100000, "brand": "Porsche", "year": 2022},
+    {"name": "Lexus IS", "price": 35000, "brand": "Lexus", "year": 2021},
+    {"name": "Jaguar XF", "price": 45000, "brand": "Jaguar", "year": 2021},
+    {"name": "Alfa Romeo Giulia", "price": 38000, "brand": "Alfa Romeo", "year": 2020},
+    {"name": "Volvo S60", "price": 33000, "brand": "Volvo", "year": 2019},
+    {"name": "Infiniti Q50", "price": 36000, "brand": "Infiniti", "year": 2021}
+]
+
+
+@lab3.route('/lab3/cars')
+def index():
+    return render_template('lab3/cars.html')
+
+@lab3.route('/lab3/results')
+def search():
+    min_price = request.args.get('min_price')
+    max_price = request.args.get('max_price')
+
+    filtered_cars = [
+        car for car in cars
+        if int(min_price) <= car['price'] <= int(max_price)
+    ]
+
+    return render_template('lab3/results.html', cars=filtered_cars)
