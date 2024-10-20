@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block lab %}Вычитание чисел{% endblock %}
+
+{% block main %}
+    <h1>Вычитание чисел</h1>
+    
+    <form method="post" action="/lab4/sub">
+        <input type="number" name="x1" value="{{ x1 or '' }}" placeholder="Введите первое число">
+        -
+        <input type="number" name="x2" value="{{ x2 or '' }}" placeholder="Введите второе число">
+        <input type="submit" value="=">
+    </form>
+    
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% elif result is not none %}
+        <p>Результат: {{ result }}</p>
+    {% endif %}
+{% endblock %}
