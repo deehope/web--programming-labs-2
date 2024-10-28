@@ -4,7 +4,10 @@
 
 {% block main %}
     {% if authorized %}
-        <h1>Добро пожаловать, {{ name }}!</h1> 
+        <h1>Добро пожаловать, {{ name }}!</h1>
+
+        <p><a href="/lab4/users">Просмотреть список пользователей</a></p>
+        
         <div>
             <form action="/lab4/logout" method="post">
                 <button>Выход</button>
@@ -24,7 +27,7 @@
             </div>
             <div>
                 {% if error %}
-                    <p style="color: darkorange; font-style: italic;">{{ error }}</p>
+                    <p style="color: red; font-style: italic;">{{ error }}</p>
                 {% endif %}
             </div>
             <div>
@@ -32,5 +35,7 @@
                 <button type="reset">Отмена</button>
             </div>
         </form>
+
+        <p>Ещё не зарегистрированы? <a href="/lab4/register">Зарегистрироваться</a></p>
     {% endif %}
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block lab %}Редактирование профиля{% endblock %}
+
+{% block main %}
+    <h1>Редактирование профиля</h1>
+    <form method="post">
+        <div>
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" value="{{ user.name }}">
+        </div>
+        <div>
+            <label for="password">Новый пароль:</label>
+            <input type="password" id="password" name="password" placeholder="Оставьте пустым, чтобы не менять">
+        </div>
+        <div>
+            <button type="submit">Сохранить изменения</button>
+        </div>
+    </form>
+{% endblock %}
