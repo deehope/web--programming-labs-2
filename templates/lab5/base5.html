@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Соколова Дарья. {% block lab %}{% endblock %}</title>
+    <link rel="stylesheet" href= "{{ url_for('static', filename = 'lab1/main.css') }}">
+    <style>
+        body {
+            {% if request.cookies.get('color') %}
+            color : {{ request.cookies.get('color') }};
+            {% endif %}
+
+            {% if request.cookies.get('background-color') %}
+            background-color: {{ request.cookies.get('background-color') }};
+            {% endif %}
+
+            {% if request.cookies.get('fontsize') %}
+            font-size: {{ request.cookies.get('fontsize') }}px;
+            {% endif %}
+
+            {% if request.cookies.get('fontweight') %}
+            font-weight: {{ request.cookies.get('fontweight') }};
+            {% endif %}
+        }
+        .links-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .link-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .link-box a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        .link-box:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        WEB-программирование, часть 2. {{ self.lab() }}
+        <nav>
+            <a href="{{ url_for('menu') }}">Главное меню</a>
+        </nav>
+
+    </header>
+
+    <main>
+        {% block main %}{% endblock %}
+    </main>
+    
+    <footer>
+        &copy; Соколова Дарья, ФБИ-23, 3 курс, 2024
+    </footer>
+</body>
+</html>
