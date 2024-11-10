@@ -29,6 +29,35 @@ def menu():
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>НГТУ, Лабораторные работы</title>
+        <style>
+            footer {
+                background-color: rgb(255, 195, 195);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 12px;
+                padding: 10px;
+                margin: 0px;
+                text-align: right;
+                font-style: italic;
+                position: fixed;
+                bottom: 0;
+                right: 0;
+                left: 0;
+            }
+            header {
+                background-color: rgb(255, 195, 195);
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-size: 14px;
+                padding: 10px; 
+                margin: 0;
+                font-style: italic;
+                width: 100%;
+            }
+            body {
+                background-color: rgb(248, 248, 248);
+                margin: 0; 
+                padding: 0; 
+            }
+        </style>  
     </head>
     <body>
         <header>
