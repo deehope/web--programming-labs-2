@@ -10,6 +10,7 @@ from lab5 import lab5
 app = Flask(__name__)
 
 load_dotenv()
+
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ключ')
 app.config['DB-TYPE'] = os.getenv('DB-TYPE', 'postgres')
 
