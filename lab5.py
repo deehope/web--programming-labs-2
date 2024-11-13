@@ -4,11 +4,10 @@ from psycopg2.extras import RealDictCursor
 from werkzeug.security import check_password_hash, generate_password_hash
 import sqlite3
 from os import path
-from dotenv import load_dotenv
+
 
 lab5 = Blueprint('lab5', __name__)
 
-load_dotenv('/.env')
 
 @lab5.route('/lab5/')
 def lab():
