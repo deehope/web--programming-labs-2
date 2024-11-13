@@ -1,5 +1,6 @@
 from flask import Flask, redirect
 import os
+from dotenv import load_dotenv
 from lab1 import lab1
 from lab2 import lab2
 from lab3 import lab3
@@ -8,6 +9,7 @@ from lab5 import lab5
 
 app = Flask(__name__)
 
+load_dotenv()
 
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ключ')
 app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
