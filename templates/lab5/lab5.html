@@ -6,7 +6,7 @@
     <h1>База знаний</h1>
 
     <p>Пользователь: {{ login or 'anonymous' }}</p>
-
+    <a href="{{ url_for('lab5.logout') }}">Выйти из аккаунта</a>
     <div class="links-container">
         <div class="link-box">
             <a href="/lab5/login">Вход</a>
