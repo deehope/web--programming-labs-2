@@ -16,7 +16,10 @@
         <div>
             <textarea name="article_text"></textarea>
         </div>
-
+        <label>
+            <input type="checkbox" name="is_public" {% if article and article ['is_public'] %} checked {% endif %}>
+            Публичная статья
+        </label>
         <div>
             <button type="submit">Готово</button>
         </div>

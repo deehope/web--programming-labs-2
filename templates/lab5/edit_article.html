@@ -15,7 +15,10 @@
         {% if error %}
             <p style="color: red;">{{ error }}</p>
         {% endif %}
-
+        <label>
+            <input type="checkbox" name="is_public" {% if article and article['is_public'] %}checked{% endif %}>
+            Публичная статья
+        </label>
         <input type="submit" value="Сохранить">
     </form>
 {% endblock %}

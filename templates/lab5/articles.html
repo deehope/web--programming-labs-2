@@ -8,13 +8,30 @@
     {% if articles %}
         {% for article in articles %}
             <div class="article">
-                <h2>{{ article['title'] }}</h2>
+                <h2>
+                    {{ article['title'] }}
+                    {% if article['is_favorite'] %}
+                        <span style="color: red;">❤️</span>
+                    {% endif %}
+                </h2>
                 <blockquote>{{ article['article_text'] }}</blockquote>
                 <div class="article-actions">
+                    <form action="/lab5/favorite/{{ article['id'] }}" method="post" style="display:inline;">
+                        <button type="submit">
+                            {% if article['is_favorite'] %}
+                                Убрать из любимых
+                            {% else %}
+                                Добавить в любимые
+                            {% endif %}
+                        </button>
+                    </form>
+
                     <a href="/lab5/edit/{{ article['id'] }}">Редактировать</a>
+
                     <form action="/lab5/delete/{{ article['id'] }}" method="post" style="display:inline;">
                         <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить эту статью?');">
-                            Удалить</button>
+                            Удалить
+                        </button>
                     </form>
                 </div>
             </div>
