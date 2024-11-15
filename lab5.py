@@ -217,7 +217,7 @@ def edit_article(article_id):
         cur.execute("SELECT * FROM users WHERE login=?;", (login,))
     user = cur.fetchone()
 
-    if article['user_id'] != user['id']:
+    if article.get('user_id') != user.get('id'):
         db_close(conn, cur)
         return render_template('lab5/error.html', error="У вас нет доступа для редактирования этой статьи.")
 
@@ -268,7 +268,7 @@ def delete_article(article_id):
         cur.execute("SELECT * FROM users WHERE login=?;", (login,))
     user = cur.fetchone()
 
-    if article['user_id'] != user['id']:
+    if article.get('user_id') != user.get('id'):
         db_close(conn, cur)
         return render_template('lab5/error.html', error="У вас нет прав для удаления этой статьи.")
     
