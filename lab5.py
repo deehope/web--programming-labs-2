@@ -215,11 +215,6 @@ def edit_article(article_id):
         cur.execute("SELECT * FROM users WHERE login=%s;", (login,))
     else:
         cur.execute("SELECT * FROM users WHERE login=?;", (login,))
-    user = cur.fetchone()
-
-    if article.get('user_id') != user.get('id'):
-        db_close(conn, cur)
-        return render_template('lab5/error.html', error="У вас нет доступа для редактирования этой статьи.")
 
     if request.method == 'POST':
         title = request.form.get('title')
@@ -266,11 +261,6 @@ def delete_article(article_id):
         cur.execute("SELECT * FROM users WHERE login=%s;", (login,))
     else:
         cur.execute("SELECT * FROM users WHERE login=?;", (login,))
-    user = cur.fetchone()
-
-    if article.get('user_id') != user.get('id'):
-        db_close(conn, cur)
-        return render_template('lab5/error.html', error="У вас нет прав для удаления этой статьи.")
     
     if current_app.config['DB_TYPE'] == 'postgres':
         cur.execute("DELETE FROM articles WHERE id=%s;", (article_id,))
