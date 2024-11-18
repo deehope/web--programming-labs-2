@@ -48,3 +48,71 @@ header {
     background-color: rgb(223, 202, 227);
     text-align: center;
 }
+
+/* Контейнер для списка офисов */
+#office-list {
+    list-style: none;
+    padding: 0;
+    max-width: 800px;
+    margin: 20px auto;
+}
+
+/* Стиль для каждого элемента списка (офис) */
+#office-list li {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Кнопки для бронирования и отмены */
+#office-list li button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Кнопка "Зарезервировать" */
+#office-list li button:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#office-list li button:nth-child(1):hover {
+    background-color: #45a049;
+}
+
+/* Кнопка "Освободить" */
+#office-list li button:nth-child(2) {
+    background-color: #f44336;
+    color: white;
+    margin-left: 10px;
+}
+
+#office-list li button:nth-child(2):hover {
+    background-color: #e53935;
+}
+
+/* Общая стоимость аренды */
+#total-cost {
+    max-width: 800px;
+    margin: 20px auto;
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    text-align: center;
+    background-color: #ffffff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
