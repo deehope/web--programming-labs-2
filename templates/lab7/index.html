@@ -3,177 +3,172 @@
 {% block lab %}Лабораторная работа 7{% endblock %}
 
 {% block script %}
-<script src="{{ url_for('static', filename='lab7/main.js') }}"></script>
+<script src="{{ url_for('static', filename='lab7/main.js') }}">
+const currentUser = "{{ login }}";  // Логин текущего пользователя
+</script>
 <style>
-    /* Основной стиль таблицы */
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-th, td {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
-}
-thead {
-    background-color: #f4f4f4;
-}
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-tbody tr:hover {
-    background-color: #f1f1f1;
-}
+    /* Стили для таблицы */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 8px;
+        text-align: left;
+        border: 1px solid #ddd;
+    }
+    thead {
+        background-color: #f4f4f4;
+    }
+    tbody tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tbody tr:hover {
+        background-color: #f1f1f1;
+    }
 
-/* Стили для кнопок */
+    /* Стили для кнопок */
+    button {
+        margin: 0 5px;
+        padding: 5px 10px;
+        cursor: pointer;
+        border: 1px solid #ccc;
+        background-color: #f4f4f4;
+    }
+    button:hover {
+        opacity: 0.9;
+    }
+    button:active {
+        transform: scale(0.98);
+    }
+    button[onclick="addFilm()"] {
+        background-color: #f7bfdd;
+        color: white;
+    }
+    button[onclick^="editFilm"] {
+        background-color: #2196F3;
+        color: white;
+    }
+    button[onclick^="deleteFilm"] {
+        background-color: #f44336;
+        color: white;
+    }
 
-button {
-    margin: 0 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    background-color: #f4f4f4;
-}
-button:hover {
-    opacity: 0.9;
-}
-button:active {
-    transform: scale(0.98);
-}
-button[onclick="addFilm()"] {
-    background-color: #f7bfdd;
-    color: white;
-}
-button[onclick^="editFilm"] {
-    background-color: #2196F3;
-    color: white;
-}
-button[onclick^="deleteFilm"] {
-    background-color: #f44336;
-    color: white;
-}
+    /* Модальное окно */
+    .modal {
+        display: none;
+        z-index: 100;
+        box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+        background: #fff;
+        width: 400px;
+        left: 50%;
+        top: 20%;
+        margin-left: -200px;
+        position: absolute;
+        padding: 20px;
+        border-radius: 8px;
+        font-family: Arial, sans-serif;
+    }
+    .modal label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+    }
+    .modal input, .modal textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+    }
+    .modal button {
+        width: calc(50% - 10px);
+        margin: 5px;
+    }
 
-/* Модальное окно */
-.modal {
-    display: none;
-    z-index: 100;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
-    background: #fff;
-    width: 400px;
-    left: 50%;
-    top: 20%;
-    margin-left: -200px;
-    position: absolute;
-    padding: 20px;
-    border-radius: 8px;
-    font-family: Arial, sans-serif;
-}
-.modal label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 5px;
-}
-.modal input, .modal textarea {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-}
-.modal button {
-    width: calc(50% - 10px);
-    margin: 5px;
-}
+    /* Сообщения об ошибках */
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: -10px;
+        margin-bottom: 10px;
+    }
+    i {
+        font-style: italic;
+        color: #777;
+        margin-left: 5px;
+    }
 
-/* Сообщения об ошибках */
-.error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
-i {
-    font-style: italic;
-    color: #777;
-    margin-left: 5px;
-}
-/* Основной заголовок */
-h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-family: Arial, sans-serif;
-    color: #333;
-}
+    /* Заголовок */
+    h1 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+    }
 
-/* Кнопка добавления фильма */
-div > button {
-    background-color: #ed96dd;
-    color: white;
-    padding: 10px 20px;
-    font-size: 18px;
-    border-radius: 4px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-}
-div > button:hover {
-    background-color: #97297c;
-}
+    /* Кнопка добавления фильма */
+    div > button {
+        background-color: #ed96dd;
+        color: white;
+        padding: 10px 20px;
+        font-size: 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: block;
+        margin: 20px auto;
+    }
+    div > button:hover {
+        background-color: #97297c;
+    }
 </style>
 {% endblock %}
 
 {% block main %}
-    <h1>Список фильмов</h1>
+<h1>Список фильмов</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th colspan="2">Название</th>
-                <th>Год</th>
-                <th>Действие</th>
-            </tr>
-        </thead>
-        <tbody id="film-list"></tbody>
-    </table>
+<table>
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Оригинальное название</th>
+            <th>Год</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody id="film-list"></tbody>
+</table>
 
-    <script>
-        fillFilmList();
-    </script>
+<div>
+    <button onclick="addFilm()">Добавить фильм</button>
+</div>
 
-    <div>
-        <button onclick="addFilm()">Добавить фильм</button>
-    </div>
-
-    <div class="modal">
-        <input type="hidden" id="id">
-        <label>
-            Название фильма на русском:
-            <input type="text" id="title-ru">
-            <div id="title-ru-error" class="error-message"></div>
-        </label><br>
-
-        <label>
-            Название фильма на оригинальном языке
-            <i>(если фильм русский, то оставьте пустым):</i>
-            <input type="text" id="title">
-            <div id="title-error" class="error-message"></div>
-        </label><br>
-
-        <label>
-            Год выпуска:
-            <input type="number" id="year">
-            <div id="year-error" class="error-message"></div>
-        </label><br>
-
-        <label>
-            Описание:
-            <textarea id="description"></textarea>
-            <div id="description-error" class="error-message"></div>
-        </label><br>
-
-        <button onclick="sendFilm()">ОК</button>
-        <button onclick="cancel()">Отмена</button>
-    </div>
+<div class="modal">
+    <input type="hidden" id="id">
+    <label>
+        Название фильма на русском:
+        <input type="text" id="title-ru">
+        <div id="title-ru-error" class="error-message"></div>
+    </label>
+    <label>
+        Название фильма на оригинальном языке
+        <i>(если фильм русский, оставьте пустым):</i>
+        <input type="text" id="title">
+        <div id="title-error" class="error-message"></div>
+    </label>
+    <label>
+        Год выпуска:
+        <input type="number" id="year">
+        <div id="year-error" class="error-message"></div>
+    </label>
+    <label>
+        Описание:
+        <textarea id="description"></textarea>
+        <div id="description-error" class="error-message"></div>
+    </label>
+    <button onclick="sendFilm()">ОК</button>
+    <button onclick="cancel()">Отмена</button>
+</div>
 {% endblock %}
