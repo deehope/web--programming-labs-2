@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, abort
+from datetime import datetime
 
 lab7 = Blueprint('lab7', __name__)
 
@@ -62,6 +63,12 @@ films = [
 ]
 
 
+def is_valid_year(year):
+    year = int(year)  # Преобразование в целое число
+    current_year = datetime.now().year
+    return 1895 <= year <= current_year
+
+
 @lab7.route('/lab7/rest-api/films/', methods=['GET'])
 def git_films():
     return jsonify(films)
@@ -88,13 +95,23 @@ def del_film(id):
 def put_film(id):
     if 0 <= id < len(films):
         film = request.get_json()
-        # Проверка на заполненность описания
-        if not film.get('description', '').strip():
-            return {'description': 'Заполните описание'}, 400
 
-        # Если оригинальное название пустое, но русское есть — копируем
-        if not film.get('title', '').strip() and film.get('title_ru', '').strip():
-            film['title'] = film['title_ru']
+        # Проверка полей
+        if not film.get('title_ru') or not film['title_ru'].strip():
+            return {'title_ru': 'Русское название обязательно'}, 400
+
+        # Если русское название пустое, то проверяем оригинальное
+        if not film.get('title') and not film.get('title_ru'):
+            return {'title': 'Оригинальное название обязательно, если русское пустое'}, 400
+
+        if not film.get('year') or not is_valid_year(film['year']):
+            return {'year': 'Год должен быть в пределах от 1895 до текущего года'}, 400
+
+        if not film.get('description') or not film['description'].strip():
+            return {'description': 'Описание обязательно'}, 400
+
+        if len(film['description']) > 2000:
+            return {'description': 'Описание не должно превышать 2000 символов'}, 400
 
         films[id] = film
         return jsonify(films[id])
@@ -105,16 +122,26 @@ def put_film(id):
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()  # Получение данных из тела запроса
-    # Проверка на заполненность описания
-    if not film.get('description', '').strip():
-        return {'description': 'Заполните описание'}, 400
 
-    # Если оригинальное название пустое, но русское есть — копируем
-    if not film.get('title', '').strip() and film.get('title_ru', '').strip():
-        film['title'] = film['title_ru']
+    # Проверка полей
+    if not film.get('title_ru') or not film['title_ru'].strip():
+        return {'title_ru': 'Русское название обязательно'}, 400
 
-    films.append(film)
-    new_index = len(films) - 1
+    # Если русское название пустое, то проверяем оригинальное
+    if not film.get('title') and not film.get('title_ru'):
+        return {'title': 'Оригинальное название обязательно, если русское пустое'}, 400
+
+    if not film.get('year') or not is_valid_year(film['year']):
+        return {'year': 'Год должен быть в пределах от 1895 до текущего года'}, 400
+
+    if not film.get('description') or not film['description'].strip():
+        return {'description': 'Описание обязательно'}, 400
+
+    if len(film['description']) > 2000:
+        return {'description': 'Описание не должно превышать 2000 символов'}, 400
+
+    films.append(film)  # Добавляем фильм в конец списка
+    new_index = len(films) - 1  # Возвращаем индекс нового фильма
     return jsonify({"id": new_index}), 201
 
 

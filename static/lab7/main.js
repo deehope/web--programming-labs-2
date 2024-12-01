@@ -41,8 +41,20 @@ function fillFilmList() {
 
             tbody.append(tr);
         }
-    })
+    });
 }
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('title-ru').addEventListener('blur', function () {
+        const titleRu = document.getElementById('title-ru').value.trim();
+        const title = document.getElementById('title');
+
+        // Копируем русское название, если оригинальное пустое
+        if (!title.value.trim()) {
+            title.value = titleRu;
+        }
+    });
+});
 
 function deleteFilm(id, title) {
     if (! confirm(`Вы точно хотите удалить фильм "${title}"?`))
@@ -102,6 +114,12 @@ function sendFilm() {
         return resp.json();
     })
     .then(function(errors) {
+        if(errors.title_ru)
+            document.getElementById('title-ru-error').innerText = errors.title_ru;
+        if(errors.title)
+            document.getElementById('title-error').innerText = errors.title;
+        if(errors.year)
+            document.getElementById('year-error').innerText = errors.year;
         if(errors.description)
             document.getElementById('description-error').innerText = errors.description;
     });
