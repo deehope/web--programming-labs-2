@@ -94,3 +94,14 @@ def put_film(id):
         abort(404)
 
 
+@lab7.route('/lab7/rest-api/films/', methods=['POST'])
+def add_film():
+    film = request.get_json()  # Получение данных из тела запроса
+    if not film:
+        abort(400, "Данные фильма отсутствуют")
+    
+    films.append(film)   # Добавляем фильм в конец списка
+    new_index = len(films) - 1      # Возвращаем индекс нового фильма
+    return jsonify({"id": new_index}), 201
+
+
