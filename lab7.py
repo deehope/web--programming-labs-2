@@ -88,8 +88,14 @@ def del_film(id):
 def put_film(id):
     if 0 <= id < len(films):
         film = request.get_json()
-        if film['description'] == '':
+        # Проверка на заполненность описания
+        if not film.get('description', '').strip():
             return {'description': 'Заполните описание'}, 400
+
+        # Если оригинальное название пустое, но русское есть — копируем
+        if not film.get('title', '').strip() and film.get('title_ru', '').strip():
+            film['title'] = film['title_ru']
+
         films[id] = film
         return jsonify(films[id])
     else:
@@ -99,11 +105,16 @@ def put_film(id):
 @lab7.route('/lab7/rest-api/films/', methods=['POST'])
 def add_film():
     film = request.get_json()  # Получение данных из тела запроса
+    # Проверка на заполненность описания
     if not film.get('description', '').strip():
         return {'description': 'Заполните описание'}, 400
-    
-    films.append(film)   # Добавляем фильм в конец списка
-    new_index = len(films) - 1      # Возвращаем индекс нового фильма
+
+    # Если оригинальное название пустое, но русское есть — копируем
+    if not film.get('title', '').strip() and film.get('title_ru', '').strip():
+        film['title'] = film['title_ru']
+
+    films.append(film)
+    new_index = len(films) - 1
     return jsonify({"id": new_index}), 201
 
 

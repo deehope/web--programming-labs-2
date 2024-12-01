@@ -5,21 +5,122 @@
 {% block script %}
 <script src="{{ url_for('static', filename='lab7/main.js') }}"></script>
 <style>
-    .modal {
-        display: none;
-        z-index: 100;
-        box-shadow: 3px 3px 5px black;
-        background: white;
-        width: 400px;
-        left: 50%;
-        top: 220px;
-        margin-left: -200px;
-        position: absolute;
-        padding: 20px;
-    }
-    .error-message {
-        color: red;
-    }
+    /* Основной стиль таблицы */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+thead {
+    background-color: #f4f4f4;
+}
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Стили для кнопок */
+
+button {
+    margin: 0 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f4f4f4;
+}
+button:hover {
+    opacity: 0.9;
+}
+button:active {
+    transform: scale(0.98);
+}
+button[onclick="addFilm()"] {
+    background-color: #f7bfdd;
+    color: white;
+}
+button[onclick^="editFilm"] {
+    background-color: #2196F3;
+    color: white;
+}
+button[onclick^="deleteFilm"] {
+    background-color: #f44336;
+    color: white;
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    z-index: 100;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    background: #fff;
+    width: 400px;
+    left: 50%;
+    top: 20%;
+    margin-left: -200px;
+    position: absolute;
+    padding: 20px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+}
+.modal label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.modal input, .modal textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.modal button {
+    width: calc(50% - 10px);
+    margin: 5px;
+}
+
+/* Сообщения об ошибках */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+i {
+    font-style: italic;
+    color: #777;
+    margin-left: 5px;
+}
+/* Основной заголовок */
+h1 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* Кнопка добавления фильма */
+div > button {
+    background-color: #ed96dd;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+}
+div > button:hover {
+    background-color: #97297c;
+}
 </style>
 {% endblock %}
 
