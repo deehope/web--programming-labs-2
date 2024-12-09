@@ -6,9 +6,6 @@
     <title>Соколова Дарья. {% block lab %}{% endblock %}</title>
     <link rel="stylesheet" href= "{{ url_for('static', filename = 'lab1/main.css') }}">
     <style>
-        .error {
-            color: red;
-        }
         body {
             {% if request.cookies.get('color') %}
             color : {{ request.cookies.get('color') }};
@@ -26,6 +23,24 @@
             font-weight: {{ request.cookies.get('fontweight') }};
             {% endif %}
         }
+        header nav {
+            text-align: center;
+        }
+        header nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+        }
+
+        header nav a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+        }
         .ticket {
             background-color: #fcd3d3;
             max-width: 600px;
@@ -35,14 +50,33 @@
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+        
     </style>
     {% block script %}{% endblock %}
 </head>
 <body>
     <header>
-        WEB-программирование, часть 2. {{ self.lab() }}
-        <nav>
+        <!-- WEB-программирование, часть 2. {{ self.lab() }} -->
+        <!-- <nav>
             <a href="{{ url_for('menu') }}">Главное меню</a>
+        </nav> -->
+        <nav>
+            {% if session.get('login') %}
+                {% if session.get('login') == 'admin' %}
+                    <!-- Навигация для администратора -->
+                    <a href="{{ url_for('test.admin') }}">Админ-панель</a>
+                    <p>Вы вошли как <strong>Администратор</strong></p>
+                {% else %}
+                    <!-- Навигация для обычных пользователей -->
+                    <p>Вы вошли как {{ session['login'] }}</p>
+                {% endif %}
+                <a href="{{ url_for('test.messenger_home') }}">Мессенджер</a>
+                <a href="{{ url_for('lab5.logout') }}">Выход</a>
+            {% else %}
+                <!-- Навигация для неавторизованных пользователей -->
+                <a href="{{ url_for('lab5.login') }}">Вход</a>
+                <a href="{{ url_for('lab5.register') }}">Регистрация</a>
+            {% endif %}
         </nav>
     </header>
 

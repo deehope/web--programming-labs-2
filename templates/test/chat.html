@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+
+{% block lab %}Чат с {{ receiver['login'] }}{% endblock %}
+
+{% block main %}
+<div class="chat-container">
+    <div class="chat-header">
+        <h1>Чат с {{ receiver['login'] }}</h1>
+    </div>
+
+    <div class="messages-container">
+        {% for message in messages %}
+            <div class="message {% if message['login'] == session['login'] %}sent{% else %}received{% endif %}">
+                <b>{{ message['login'] }}:</b> {{ message['message_text'] }}
+                {% if message['login'] == session['login'] or message['login'] == receiver['login'] %}
+                    <a href="{{ url_for('test.delete_message', message_id=message['id'], receiver_id=receiver['id']) }}" 
+                       class="delete" 
+                       onclick="return confirm('Вы уверены, что хотите удалить это сообщение?');">
+                       Удалить
+                    </a>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="input-container">
+        <form id="sendMessageForm" method="POST" action="{{ url_for('test.chat', receiver_id=receiver['id']) }}">
+            <input type="text" name="message" id="messageInput" placeholder="Введите сообщение" required>
+            <button type="submit">Отправить</button>
+        </form>
+    </div>
+</div>
+
+{% block script %}
+<script>
+    document.getElementById('sendMessageForm').addEventListener('submit', function(event) {
+        const messageInput = document.getElementById('messageInput');
+        if (!messageInput.value.trim()) {
+            event.preventDefault(); // Остановить отправку формы
+            alert('Сообщение не может быть пустым!');
+        }
+    });
+    // Прокрутка вниз после загрузки страницы
+    window.onload = function() {
+        const container = document.querySelector('.messages-container');
+        container.scrollTop = container.scrollHeight;
+    };
+</script>
+<style>
+    .chat-container {
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        height: 500px;
+        display: flex;
+        flex-direction: column;
+    }
+    .messages-container {
+        flex: 1;
+        overflow-y: scroll;
+        margin-bottom: 20px;
+        padding-right: 10px;
+    }
+    .message {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 10px;
+        padding: 10px;
+        border-radius: 20px;
+        max-width: 70%;
+        background-color: #e1e1e1;
+        position: relative;
+    }
+    .message.sent {
+        background-color: #eaaff8;
+        color: white;
+        align-self: flex-end;
+    }
+    .message.received {
+        background-color: #f1f1f1;
+        color: #333;
+    }
+    .message .delete {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        font-size: 14px;
+        color: #888;
+        opacity: 0.7;
+    }
+    .message .delete:hover {
+        color: #ff0000;
+        opacity: 1;
+    }
+    .input-container {
+        display: flex;
+        margin-top: 10px;
+    }
+    .input-container textarea {
+        flex: 1;
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid #ccc;
+        resize: none;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+    .input-container button {
+        padding: 10px 20px;
+        background-color: #97129a;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .input-container button:hover {
+        background-color: #7b0363;
+    }
+    .chat-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+    }
+    .chat-header h1 {
+        font-size: 20px;
+        margin: 0;
+    }
+</style>
+{% endblock %}
+{% endblock %}

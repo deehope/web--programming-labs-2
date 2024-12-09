@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block lab %}Мессенджер{% endblock %}
+
+{% block main %}
+<div class="messenger-container">
+    <h1>Мессенджер</h1>
+    <!-- Список пользователей -->
+    <ul class="users-list">
+        {% for user in users %}
+            <li>
+                <span>{{ user.login }}</span>
+                <a href="{{ url_for('test.chat', receiver_id=user.id) }}">Перейти в чат</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% block script %}
+<style>
+.messenger-container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.messenger-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+.users-list {
+    list-style: none;
+    padding-left: 0;
+}
+.users-list li {
+    background-color: #f1f1f1;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.users-list li a {
+    color: #4b024c;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+.users-list li a:hover {
+    color: #6706b6;
+}
+.admin-panel-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #5a0728;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.admin-panel-button:hover {
+    background-color: #690a51;
+}
+.logout-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #dc3545;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.logout-button:hover {
+    background-color: #c82333;
+}
+</style>
+{% endblock %}
+{% endblock %}
