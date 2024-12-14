@@ -1,0 +1,21 @@
+{% extends "lab5/base5.html" %}
+
+{% block lab %}Лабораторная работа 8{% endblock %}
+
+{% block main %}
+    <p>Пользователь: {{ login or 'anonymous' }}</p>
+    <div class="links-container">
+        <div class="link-box">
+            <a href="/lab8/login">Вход</a>
+        </div>
+        <div class="link-box">
+            <a href="/lab8/register">Регистрация</a>
+        </div>
+        <div class="link-box">
+            <a href="/lab8/articles">Список статей</a>
+        </div>
+        <div class="link-box">
+            <a href="/lab8/create">Создать статью</a>
+        </div>
+    </div>
+{% endblock %}
