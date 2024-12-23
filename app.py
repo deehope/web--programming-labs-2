@@ -28,8 +28,15 @@ login_manager.init_app(app)
 def load_users(login_id):
     return users.query.get(int(login_id))
 
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'ключ')
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'key')
 app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
+
+app.config['SESSION_COOKIE_NAME'] = 'lab8_session'
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SECURE'] = False  # Используйте True, если используете HTTPS
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_PERMANENT'] = True  # Сессия будет постоянной, если галочка "Запомнить меня" установлена
+app.config['SESSION_TYPE'] = 'filesystem'  # Это может помочь избежать проблем с кодировкой
 
 if app.config['DB_TYPE'] == 'postgres':
     db_name = 'sokolova_darya_orm'

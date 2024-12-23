@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block lab %}Список статей{% endblock %}
+
+{% block main %}
+    <h1>Ваши статьи</h1>
+    <ul>
+        {% for article in articles %}
+            <li>
+                <strong>{{ article.title }}</strong><br>
+                {{ article.article_text }}<br>
+                <small>
+                    Избранное: {{ 'Да' if article.is_favorite else 'Нет' }}<br>
+                    Публичная: {{ 'Да' if article.is_public else 'Нет' }}<br>
+                    Лайки: {{ article.likes }}<br>
+                    <a href="{{ url_for('lab8.edit_article', article_id=article.id) }}">Редактировать</a>
+                </small>
+                <form action="{{ url_for('lab8.delete_article', article_id=article.id) }}" method="POST" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">Удалить</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/lab8/create">Создать новую статью</a>
+{% endblock %}
