@@ -56,28 +56,25 @@
 </head>
 <body>
     <header>
-        <!-- WEB-программирование, часть 2. {{ self.lab() }} -->
-        <!-- <nav>
-            <a href="{{ url_for('menu') }}">Главное меню</a>
-        </nav> -->
+        WEB-программирование, часть 2. {{ self.lab() }}
         <nav>
+            <a href="{{ url_for('menu') }}">Главное меню</a>
+        </nav>
+        <!-- <nav>
             {% if session.get('login') %}
                 {% if session.get('login') == 'admin' %}
-                    <!-- Навигация для администратора -->
                     <a href="{{ url_for('test.admin') }}">Админ-панель</a>
                     <p>Вы вошли как <strong>Администратор</strong></p>
                 {% else %}
-                    <!-- Навигация для обычных пользователей -->
                     <p>Вы вошли как {{ session['login'] }}</p>
                 {% endif %}
                 <a href="{{ url_for('test.messenger_home') }}">Мессенджер</a>
                 <a href="{{ url_for('lab5.logout') }}">Выход</a>
             {% else %}
-                <!-- Навигация для неавторизованных пользователей -->
                 <a href="{{ url_for('lab5.login') }}">Вход</a>
                 <a href="{{ url_for('lab5.register') }}">Регистрация</a>
             {% endif %}
-        </nav>
+        </nav> -->
     </header>
 
     <main>

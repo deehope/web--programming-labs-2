@@ -1,7 +1,8 @@
 from flask import Blueprint, session, render_template, request, redirect
 from db import db
+from flask_login import login_user, login_required, current_user
 from db.models import users, articles
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 lab8 = Blueprint('lab8', __name__)
 
@@ -37,10 +38,32 @@ def register():
     db.session.commit()
     return redirect('/lab8/')
 
-# @lab8.route('/lab8/login')
+@lab8.route('/lab8/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('lab8/login.html')
+    
+    login_form = request.form.get('login')
+    password_form = request.form.get('password')
 
+    # Проверка на пустые значения
+    if not login_form or login_form.strip() == "":
+        return render_template('lab8/login.html', error='Логин не должен быть пустым')
+    
+    if not password_form or password_form.strip() == "":
+        return render_template('lab8/login.html', error='Пароль не должен быть пустым')
 
-# @lab8.route('/lab8/articles')
+    # Проверка существования пользователя
+    user = users.query.filter_by(login=login_form).first()
+    if user and check_password_hash(user.password, password_form):
+        login_user(user, remember = False)
+        return redirect('/lab8/')
 
+    # Если пользователь не найден или пароль неверен
+    return render_template('lab8/login.html', error='Ошибка входа: логин и/или пароль неверны')
+
+@lab8.route('/lab8/articles')
+def article_list():
+    return "список статей"
 
 # @lab8.route('/lab8/create')
