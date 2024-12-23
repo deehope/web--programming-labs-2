@@ -1,6 +1,6 @@
 from flask import Blueprint, session, render_template, request, redirect
 from db import db
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 from db.models import users, articles
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -67,4 +67,9 @@ def login():
 def article_list():
     return "список статей"
 
-# @lab8.route('/lab8/create')
+
+@lab8.route('/lab8/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/lab8/')
