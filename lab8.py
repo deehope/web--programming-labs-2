@@ -8,7 +8,7 @@ lab8 = Blueprint('lab8', __name__)
 
 @lab8.route('/lab8/')
 def lab():
-    return render_template('lab8/lab8.html', login = session.get('login'))
+    return render_template('lab8/lab8.html', login=current_user.login if current_user.is_authenticated else 'anonymous')
 
 @lab8.route('/lab8/register', methods=['GET', 'POST'])
 def register():

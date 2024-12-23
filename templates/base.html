@@ -58,7 +58,9 @@
     <header>
         WEB-программирование, часть 2. {{ self.lab() }}
         <nav>
-            <a href="{{ url_for('menu') }}">Главное меню</a>
+            <a href="{{ url_for('lab8.lab') }}">База знаний</a>
+            <a href="{{ url_for('lab8.login') }}">Вход</a>
+            <a href="{{ url_for('lab8.register') }}">Регистрация</a>
         </nav>
         <!-- <nav>
             {% if session.get('login') %}
