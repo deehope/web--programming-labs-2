@@ -167,3 +167,26 @@ def delete_article(article_id):
     db.session.commit()
 
     return redirect('/lab8/articles')
+
+
+@lab8.route('/lab8/public_articles')
+def public_articles():
+    public_articles = articles.query.filter_by(is_public=True).all()
+    return render_template('lab8/public_articles.html', articles=public_articles)
+
+
+@lab8.route('/lab8/search', methods=['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search_query = request.form.get('query')
+
+        if search_query:
+            results = articles.query.filter(
+                (articles.title.ilike(f'%{search_query}%')) | 
+                (articles.article_text.ilike(f'%{search_query}%'))
+            ).all()
+            return render_template('lab8/search_results.html', results=results, query=search_query)
+        else:
+            return render_template('lab8/search_results.html', error="Поисковый запрос не может быть пустым.")
+    
+    return render_template('lab8/search.html')
