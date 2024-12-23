@@ -63,6 +63,7 @@ def login():
     return render_template('lab8/login.html', error='Ошибка входа: логин и/или пароль неверны')
 
 @lab8.route('/lab8/articles')
+@login_required
 def article_list():
     return "список статей"
 
