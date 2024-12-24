@@ -15,6 +15,7 @@ from lab5 import lab5
 from lab6 import lab6
 from lab7 import lab7
 from lab8 import lab8
+from lab9 import lab9
 from test import test
 
 app = Flask(__name__)
@@ -33,10 +34,10 @@ app.config['DB_TYPE'] = os.getenv('DB_TYPE', 'postgres')
 
 app.config['SESSION_COOKIE_NAME'] = 'lab8_session'
 app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SECURE'] = False  # Используйте True, если используете HTTPS
+app.config['SESSION_COOKIE_SECURE'] = False
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['SESSION_PERMANENT'] = True  # Сессия будет постоянной, если галочка "Запомнить меня" установлена
-app.config['SESSION_TYPE'] = 'filesystem'  # Это может помочь избежать проблем с кодировкой
+app.config['SESSION_PERMANENT'] = True
+app.config['SESSION_TYPE'] = 'filesystem'
 
 if app.config['DB_TYPE'] == 'postgres':
     db_name = 'sokolova_darya_orm'
@@ -62,6 +63,7 @@ app.register_blueprint(lab5)
 app.register_blueprint(lab6)
 app.register_blueprint(lab7)
 app.register_blueprint(lab8)
+app.register_blueprint(lab9)
 app.register_blueprint(test)
 
 @app.route("/")
@@ -122,6 +124,7 @@ def menu():
             <li><a href = "/lab6">Шестая лабораторная</a></li>
             <li><a href = "/lab7">Седьмая лабораторная</a></li>
             <li><a href = "/lab8">Восьмая лабораторная</a></li>
+            <li><a href = "/lab9">Девятая лабораторная</a></li>
             <li><a href = "/test">РГЗ</a></li>
         </ul>
 
