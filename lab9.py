@@ -1,9 +1,14 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, session, render_template, request, redirect, url_for
 
 lab9 = Blueprint('lab9', __name__)
 
 @lab9.route('/lab9/', methods=['GET', 'POST'])
 def main():
+    if 'last_message' in session and 'last_image' in session:
+        last_message = session['last_message']
+        last_image = session['last_image']
+        return render_template('lab9/result.html', message=last_message, image=last_image, reset=True)
+
     if request.method == 'POST':
         name = request.form.get('name')
         return redirect(url_for('lab9.step2', name=name))
@@ -52,8 +57,8 @@ def result():
     name = request.args.get('name')
     age = int(request.args.get('age'))
     gender = request.args.get('gender')
-    choice1 = request.args.get('choice1')  # что-то вкусное или красивое
-    choice2 = request.args.get('choice2')  # сладкое/сытное или цветы/украшения
+    choice1 = request.args.get('choice1')
+    choice2 = request.args.get('choice2')
 
     if choice1 == 'tasty':
         if choice2 == 'sweet':
@@ -82,5 +87,13 @@ def result():
         was = 'была'
 
     message = f"Поздравляю тебя, {name}, желаю, чтобы {pronoun} быстро {grew}, {was} {smart}. Вот тебе подарок — {gift}."
+    session['last_message'] = message
+    session['last_image'] = image
 
     return render_template('lab9/result.html', message=message, image=image)
+
+@lab9.route('/lab9/reset')
+def reset():
+    session.pop('last_message', None)
+    session.pop('last_image', None)
+    return redirect(url_for('lab9.main'))
